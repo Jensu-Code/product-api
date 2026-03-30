@@ -4,6 +4,8 @@ import java.time.Duration;
 import java.util.Map;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,6 +31,16 @@ public class ProductController {
     public ResponseEntity<?> create(@Valid @RequestBody ProductDto product) {
 
         Reply<?> reply = productCommandService.sendCreateAndAwait(product, Duration.ofSeconds(5));
+        return getResponseEntity(reply);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<?> read(@PathVariable Long id) {
+        Reply<?> reply = productCommandService.sendReadAndAwait(id, Duration.ofSeconds(5));
+        return getResponseEntity(reply);
+    }
+
+    private ResponseEntity<?> getResponseEntity(Reply<?> reply) {
         if("SUCCESS".equalsIgnoreCase(reply.status())){
             return ResponseEntity.ok(reply.body());
         }

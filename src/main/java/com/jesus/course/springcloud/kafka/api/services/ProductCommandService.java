@@ -8,4 +8,5 @@ import com.jesus.course.springcloud.kafka.api.models.dto.Reply;
 public interface ProductCommandService {
 
     Reply<?> sendCreateAndAwait(ProductDto product, Duration timeout);
+    Reply<?> sendReadAndAwait(Long id, Duration timeout);
 }
