@@ -40,6 +40,24 @@ public class ProductCommandServiceImp implements ProductCommandService {
         Command<ProductDto> command = new Command<>("READ", id, null);
         return SentAndAwait(command, timeout);
     }
+    
+    @Override
+    public Reply<?> sendReadAllAndAwait(Duration timeout) {
+        Command<ProductDto> command = new Command<>("READ_ALL", null, null);
+        return SentAndAwait(command, timeout);
+    }
+
+    @Override
+    public Reply<?> sendUpdateAndAwait(Long id, ProductDto product, Duration timeout) {
+        Command<ProductDto> command = new Command<>("UPDATE", id, product);
+        return SentAndAwait(command, timeout);
+    }
+
+    @Override
+    public Reply<?> sendDeleteAndAwait(Long id, Duration timeout) {
+        Command<ProductDto> command = new Command<>("DELETE", id, null);
+        return SentAndAwait(command, timeout);
+    }
 
     private Reply<?> SentAndAwait(Command<ProductDto> command, Duration timeout) {
         String correlationId = UUID.randomUUID().toString();

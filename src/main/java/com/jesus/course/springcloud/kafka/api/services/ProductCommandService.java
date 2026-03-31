@@ -9,4 +9,7 @@ public interface ProductCommandService {
 
     Reply<?> sendCreateAndAwait(ProductDto product, Duration timeout);
     Reply<?> sendReadAndAwait(Long id, Duration timeout);
+    Reply<?> sendReadAllAndAwait(Duration timeout);
+    Reply<?> sendUpdateAndAwait(Long id, ProductDto product, Duration timeout);
+    Reply<?> sendDeleteAndAwait(Long id, Duration timeout);
 }
