@@ -59,11 +59,12 @@ public class ProductController {
         Reply<?> reply = productCommandService.sendDeleteAndAwait(id, Duration.ofSeconds(5));
         return getResponseEntity(reply);
     }
-
+    
     private ResponseEntity<?> getResponseEntity(Reply<?> reply) {
-        if("SUCCESS".equalsIgnoreCase(reply.status())){
+        if(reply.status().isSuccess()){
             return ResponseEntity.ok(reply.body());
         }
         return ResponseEntity.badRequest().body(Map.of("error", reply.message()));
     }
 }
+

@@ -1,5 +1,7 @@
 package com.jesus.course.springcloud.kafka.api.models.dto;
 
-public record Reply<T>(String status, String message, T body) {
+import com.jesus.course.springcloud.kafka.api.models.ReplyStatus;
+
+public record Reply<T>(ReplyStatus status, String message, T body) {
 
 }
