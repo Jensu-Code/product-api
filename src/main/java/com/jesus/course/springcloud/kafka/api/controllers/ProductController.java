@@ -29,6 +29,12 @@ public class ProductController {
         this.productCommandService = productCommandService;
     }
     
+    @GetMapping
+    public ResponseEntity<?> readAll() {
+        Reply<?> reply = productCommandService.sendReadAllAndAwait(Duration.ofSeconds(5));
+        return getResponseEntity(reply);
+    }
+    
     @PostMapping
     public ResponseEntity<?> create(@Valid @RequestBody ProductDto product) {
 
