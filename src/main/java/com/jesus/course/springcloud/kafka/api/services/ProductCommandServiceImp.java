@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import com.jesus.course.springcloud.kafka.api.messaging.ReplyInbox;
 import com.jesus.course.springcloud.kafka.api.models.Command;
+import com.jesus.course.springcloud.kafka.api.models.CommandType;
 import com.jesus.course.springcloud.kafka.api.models.dto.ProductDto;
 import com.jesus.course.springcloud.kafka.api.models.dto.Reply;
 
@@ -30,33 +31,28 @@ public class ProductCommandServiceImp implements ProductCommandService {
 
     @Override
     public Reply<?> sendCreateAndAwait(ProductDto product, Duration timeout) {
-        Command<ProductDto> command = new Command<>("CREATE", null, product);
-        return SentAndAwait(command, timeout);
+        return SentAndAwait(new Command<>(CommandType.CREATE, null, product), timeout);
 
     }
 
     @Override
     public Reply<?> sendReadAndAwait(Long id, Duration timeout) {
-        Command<ProductDto> command = new Command<>("READ", id, null);
-        return SentAndAwait(command, timeout);
+        return SentAndAwait(new Command<>(CommandType.READ, id, null), timeout);
     }
     
     @Override
     public Reply<?> sendReadAllAndAwait(Duration timeout) {
-        Command<ProductDto> command = new Command<>("READ_ALL", null, null);
-        return SentAndAwait(command, timeout);
+        return SentAndAwait(new Command<>(CommandType.READ_ALL, null, null), timeout);
     }
 
     @Override
     public Reply<?> sendUpdateAndAwait(Long id, ProductDto product, Duration timeout) {
-        Command<ProductDto> command = new Command<>("UPDATE", id, product);
-        return SentAndAwait(command, timeout);
+        return SentAndAwait(new Command<>(CommandType.UPDATE, id, product), timeout);
     }
 
     @Override
     public Reply<?> sendDeleteAndAwait(Long id, Duration timeout) {
-        Command<ProductDto> command = new Command<>("DELETE", id, null);
-        return SentAndAwait(command, timeout);
+        return SentAndAwait(new Command<>(CommandType.DELETE, id, null), timeout);
     }
 
     private Reply<?> SentAndAwait(Command<ProductDto> command, Duration timeout) {
